@@ -105,4 +105,41 @@ public class homework2 {
 //            }
 //        }
 //    }
+
+    static class homework7 {
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.print("Nhập cạnh a: ");
+            double a = scanner.nextDouble();
+            System.out.print("Nhập canh b: ");
+            double b = scanner.nextDouble();
+            System.out.print("Nhập cạnh c: ");
+            double c = scanner.nextDouble();
+
+            if (a + b > c && a + c > b && b + c > a) {
+                System.out.println("Là 1 tam giác ");
+
+                if (a == b && b == c) {
+                    System.out.println("Đây là tam giác đều.");
+                } else if (a * a + b * b == c * c || a * a + c * c == b * b || b * b + c * c == a * a) {
+                    System.out.println("Đây là tam giác vuông.");
+                } else if (a == b || a == c || b == c) {
+                    System.out.println("Đây là tam giác cân.");
+                } else {
+                    System.out.println("Đây là tam giác thường.");
+                }
+
+                double perimeter = a + b + c;
+                System.out.println("Chu vi của tam giác là: " + perimeter);
+
+                double p = perimeter / 2;
+                double area = Math.sqrt(p * (p - a) * (p - b) * (p - c));
+                System.out.println("Diện tích của tam giác là: " + area);
+
+            } else {
+                System.out.println("Ba số này không thể tạo thành một tam giác.");
+            }
+        }
+    }
 }

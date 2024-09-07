@@ -3,6 +3,7 @@ package F01_homework;
 import com.sun.security.jgss.GSSUtil;
 
 import java.sql.SQLOutput;
+import java.util.Enumeration;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -59,30 +60,34 @@ public class homework_10 {
     static class homework3 {
 
         public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            boolean result = false;
 
             try {
-                Scanner scanner = new Scanner(System.in);
+
                 System.out.println("Enter first number: ");
                 int a = scanner.nextInt();
-
                 System.out.println("Enter second number: ");
                 int b = scanner.nextInt();
-
                 int sum = a+b;
-
                 System.out.println("The sum is " + sum);
+                result = true;
             } catch (InputMismatchException inputMismatchException) {
-                System.out.println("Error");
+                System.out.println("Invalid Number");
             } finally {
-                System.out.println("Wrong type of number");
+                if (result) {
+                    System.out.println("Success");
+                } else {
+                    System.out.println("Error");
+                }
             }
         }
     }
 
     static class homework4 {
         public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
             try {
-                Scanner scanner = new Scanner(System.in);
                 System.out.println("Enter array: ");
                 int a = scanner.nextInt();
 
@@ -94,7 +99,64 @@ public class homework_10 {
                 System.out.println("ArrayIndexOutOfBoundsException");
             } catch (InputMismatchException inputMismatchException) {
                 System.out.println("InputMismatchException");
+            } finally {
+                scanner.close();
             }
         }
     }
+
+    static class homework5 {
+
+        static class InvalidAgeException extends Exception {
+            public InvalidAgeException (String message) {
+                super(message);
+            }
+        }
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+
+            try {
+                System.out.println("Enter age: ");
+                int age = scanner.nextInt();
+
+                if (age < 18) {
+                    throw new InvalidAgeException("Not old enough!");
+                } else {
+                    System.out.println("Done!");
+                }
+            } catch (InvalidAgeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    static class homework6 {
+
+        static class NegativeNumberException extends Exception {
+            public NegativeNumberException(String message) {
+                super(message);
+            }
+        }
+
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+
+            try {
+                System.out.println("Enter number: ");
+                int num = scanner.nextInt();
+
+                if (num < 0) {
+                    throw new NumberFormatException("Invalid number");
+                }
+            } catch (NumberFormatException exception) {
+                try {
+                    throw new NegativeNumberException("Error: Number < 0");
+                } catch (NegativeNumberException negativeNumberException) {
+                    System.out.println(negativeNumberException.getMessage());
+                }
+            }
+        }
+    }
+
+    static class homework7
 }

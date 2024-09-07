@@ -1,9 +1,5 @@
 package F01_homework;
 
-import com.sun.security.jgss.GSSUtil;
-
-import java.sql.SQLOutput;
-import java.util.Enumeration;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -147,6 +143,8 @@ public class homework_10 {
 
                 if (num < 0) {
                     throw new NumberFormatException("Invalid number");
+                } else {
+                    System.out.println("Done!");
                 }
             } catch (NumberFormatException exception) {
                 try {
@@ -158,5 +156,54 @@ public class homework_10 {
         }
     }
 
-    static class homework7
+    static class homework8 {
+
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+
+            try {
+                System.out.println("Enter number: ");
+                int num = scanner.nextInt();
+
+                if (num < 0) {
+                    throw new IllegalArgumentException("Invalid number");
+                }
+
+                double result = Math.sqrt(num);
+                System.out.println("Square root of " + num + " is: " + result);
+            } catch (IllegalArgumentException illegalArgumentException) {
+                System.out.println(illegalArgumentException.getMessage());
+            }
+        }
+    }
+
+    static class homework9 {
+
+        static class InsufficientFundsException extends Exception {
+            public InsufficientFundsException (String message) {
+                super(message);
+            }
+        }
+        static class BankAccount {
+            public static void WithDraw(double amount) throws InsufficientFundsException {
+                int AccountBalance = 10000000;
+                if (amount > AccountBalance) {
+                    throw new InsufficientFundsException("Insufficient balance!");
+                }
+            }
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);
+                try {
+                    System.out.println("Enter amount: ");
+                    int amount = scanner.nextInt();
+                    WithDraw(amount);
+                    System.out.println("Success!");
+                } catch (InsufficientFundsException insufficientFundsException) {
+                    System.out.println(insufficientFundsException.getMessage());
+                }
+            }
+        }
+
+
+    }
 }

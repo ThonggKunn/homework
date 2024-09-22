@@ -86,6 +86,47 @@ having soluong > 10;
 select course.title,chapter.title, lesson.title from course join chapter join lesson
 on course.id = chapter.course_id
 and chapter.id = lesson.chapter_id
-group by course.title, chapter.title, lesson.title
+group by course.title, chapter.title, lesson.title;
+
+
+    # 5. Tìm tất cả khóa học chưa có sinh viên học hoặc giáo viên nào dạy
+
+select id, title from course
+                          left join student_course on course.id = student_course.course_id
+                          left join teacher_course on course.id = teacher_course.course_id
+where student_course.student_id is null or teacher_course.teacher_id is null;
+
+
+#6. truy vấn chi tiết khóa học và số lượng chappter và số lượng bài học trong khóa học, và số lượng user đã đăng ký khóa học
+
+select course.id, course.title,
+       count(distinct chapter.id) as soluongchuong ,
+       count(distinct lesson.title) as soluongbai,
+       count(distinct student_course.student_id) as soluonghocvien
+from course left join chapter on course.id = chapter.course_id
+            left join lesson on chapter.id = lesson.chapter_id
+            left join student_course on course.id = student_course.course_id
+group by course.id, course.title;
+
+#7. truy vấn thông tin chi tiết về khóa học và chapter và số lượng bài học trong chapter
+
+select course.id, course.title, chapter.id, chapter.title,
+       count(distinct lesson.title) as soluongbai
+from course left join chapter on course.id = chapter.course_id
+            left join lesson on chapter.id = lesson.chapter_id
+group by course.id, course.title, chapter.id, chapter.title;
+
+
+#8. truy vấn thông tin chi tiết về khóa học và chapter và thông tin bài học và số lượng user đã hoàn thành bài học, và số lượng user đang học bài học.
+
+select course.id, course.title, chapter.id, chapter.title, lesson.title,
+       count(distinct student.status) as user_dahoanthanh
+from course left join chapter  on course.id = chapter.course_id
+left join lesson on chapter.id = lesson.chapter_id
+left join student_course on course.id = student_course.course_id
+left join student on student_course.student_id = student.id
+group by course.id, course.title, chapter.id, chapter.title, lesson.title
+having user_dahoanthanh = 'on' ;
+
 
 

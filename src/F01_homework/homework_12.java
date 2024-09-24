@@ -67,7 +67,7 @@ public class homework_12 {
         }
     }
 
-    static class homework3 {
+    static class homework5 {
         private static boolean pairBracket(char open, char close) {
             return (open == '(' && close == ')') || (open == '{' && close == '}') || (open == '[' && close == ']');
         }
@@ -91,9 +91,76 @@ public class homework_12 {
                     }
                 }
             }
+            return stack.isEmpty();
+        }
 
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter string: ");
+            String string = scanner.nextLine();
+
+            System.out.println(isTrue(string));
         }
 
     }
 
+    static class homework7 {
+        public static String convertToBinary(int decimal) {
+            Stack<Integer> stack = new Stack<>();
+            StringBuilder binary = new StringBuilder();
+
+            while (decimal > 0) {
+                int remainder = decimal % 2;
+                stack.push(remainder);
+                decimal /= 2;
+            }
+
+            while (!stack.isEmpty()) {
+                binary.append(stack.pop());
+            }
+
+            return binary.toString();
+        }
+
+        public static void main(String[] args) {
+            int decimalNumber = 10;
+            String binary = convertToBinary(decimalNumber);
+            System.out.println("The binary of " + decimalNumber + " is: " + binary);
+        }
+
+    }
+
+    static class homework8 {
+
+        public static boolean isValidExpression(String string) {
+            Stack<Character> stack = new Stack<>();
+
+            for (char c : string.toCharArray()) {
+                if (c == '(' || c == '{' || c == '[') {
+                    stack.push(c);
+                }
+                else if (c == ')' || c == '}' || c == ']') {
+                    if (stack.isEmpty()) {
+                        return false;
+                    }
+                    char top = stack.pop();
+                    if ((c == ')' && top != '(') ||
+                            (c == '}' && top != '{') ||
+                            (c == ']' && top != '[')) {
+                        return false;
+                    }
+                }
+            }
+            return stack.isEmpty();
+        }
+
+        public static void main(String[] args) {
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter string: ");
+            String string = scanner.nextLine();
+
+            System.out.println(isValidExpression(string));
+        }
+    }
 }

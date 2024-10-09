@@ -1,8 +1,6 @@
 package F01_homework;
 
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class homework_12 {
 
@@ -64,6 +62,114 @@ public class homework_12 {
             System.out.println(Arrays.toString(num));
 
 
+        }
+    }
+
+    static class homework3 {
+        public static void main(String[] args) {
+            Scanner sc = new Scanner(System.in);
+            Stack<Integer> stack = new Stack<>();
+
+            while (true) {
+                String command = sc.next();
+
+                switch (command) {
+                    case "init":
+                        stack = new Stack<>();
+                        break;
+
+                    case "push":
+                        int x = sc.nextInt();
+                        stack.push(x);
+                        break;
+
+                    case "pop":
+                        if (!stack.isEmpty()) {
+                            stack.pop();
+                        }
+                        break;
+
+                    case "top":
+                        if (!stack.isEmpty()) {
+                            System.out.println(stack.peek());
+                        } else {
+                            System.out.println(-1);
+                        }
+                        break;
+
+                    case "size":
+                        System.out.println(stack.size());
+                        break;
+
+                    case "empty":
+                        System.out.println(stack.isEmpty() ? 1 : 0);
+                        break;
+
+                    case "end":
+                        sc.close();
+                        return;
+                }
+            }
+        }
+    }
+
+    static class homework4 {
+        public static void main(String[] args) {
+            Deque<Integer> queue = new LinkedList<>();
+            Deque<Object> result = new LinkedList<>();
+            Scanner scanner = new Scanner(System.in);
+
+            int n = scanner.nextInt();
+
+            while(n > 0){
+                boolean flag = false;
+                int choice = scanner.nextInt();
+                switch(choice){
+                    case 1:
+                        result.add(queue.size());
+                        flag = true;
+                        break;
+                    case 2:
+                        if(queue.isEmpty())
+                            result.add("YES");
+                        else
+                            result.add("NO");
+                        flag = true;
+                        break;
+                    case 3:
+                        int num = scanner.nextInt();
+                        queue.add(num);
+                        flag = true;
+                        break;
+                    case 4:
+                        if(!queue.isEmpty())
+                            queue.poll();
+                        flag = true;
+                        break;
+                    case 5:
+                        if(!queue.isEmpty())
+                            result.add(queue.peek());
+                        else
+                            result.add(-1);
+                        flag = true;
+                        break;
+                    case 6:
+                        if(!queue.isEmpty())
+                            result.add(queue.getLast());
+                        else
+                            result.add(-1);
+                        flag = true;
+                        break;
+                    default:
+                        System.out.println("Nhập lại");
+                        break;
+                }
+                if(flag) n--;
+            }
+
+            while (!result.isEmpty()){
+                System.out.println(result.poll());
+            }
         }
     }
 
@@ -161,6 +267,95 @@ public class homework_12 {
             String string = scanner.nextLine();
 
             System.out.println(isValidExpression(string));
+        }
+    }
+
+    static class homework9 {
+        static class Node {
+            int data;
+            Node next;
+
+            public Node(int data) {
+                this.data = data;
+                this.next = null;
+            }
+        }
+
+        static class SinglyLinkedList {
+            Node head;
+
+            public SinglyLinkedList() {
+                this.head = null;
+            }
+
+            public void insert(int data) {
+                Node newNode = new Node(data); // Tạo một nút mới
+                if (head == null) {
+                    head = newNode;
+                } else {
+                    Node current = head;
+                    while (current.next != null) {
+                        current = current.next;
+                    }
+                    current.next = newNode;
+                }
+            }
+
+            public void delete(int data) {
+                if (head == null) {
+                    System.out.println("Danh sách rỗng.");
+                    return;
+                }
+                if (head.data == data) {
+                    head = head.next;
+                    return;
+                }
+
+                Node current = head;
+                while (current.next != null && current.next.data != data) {
+                    current = current.next;
+                }
+
+                if (current.next != null) {
+                    current.next = current.next.next;
+                } else {
+                    System.out.println("Không tìm thấy phần tử " + data);
+                }
+            }
+
+            public void showNode() {
+                if (head == null) {
+                    System.out.println("Danh sách rỗng.");
+                    return;
+                }
+
+                Node current = head;
+                while (current != null) {
+                    System.out.print(current.data + " -> ");
+                    current = current.next;
+                }
+                System.out.println("null");
+            }
+        }
+
+        public static void main(String[] args) {
+            SinglyLinkedList list = new SinglyLinkedList();
+
+            list.insert(10);
+            list.insert(20);
+            list.insert(30);
+            list.insert(40);
+
+            System.out.println("Danh sách sau khi thêm các phần tử:");
+            list.showNode();
+
+            list.delete(20);
+            System.out.println("Danh sách sau khi xóa phần tử 20:");
+            list.showNode();
+            
+            list.delete(50);
+            System.out.println("Danh sách sau khi thử xóa phần tử không tồn tại:");
+            list.showNode();
         }
     }
 }

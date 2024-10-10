@@ -95,53 +95,151 @@ public class homework2 {
         }
     }
 
-//    static class homework_6 {
-//        public static void main(String[] args) {
-//            Scanner scanner = new Scanner(System.in);
-//            int number = scanner.nextInt();
-//
-//            if (number <= 0 || number >= 1000) {
-//                System.out.println("Error");
-//            } else {
-//                System.out.println("The Roman number is: ");
-//            }
-//        }
-//    }
+    static class homework_6 {
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.print("Enter a positive number < 1000: ");
+
+            int number = scanner.nextInt();
+            if (number <= 0 || number >= 1000) {
+                System.out.println("The input number must be a smaller positive integer < 1000");
+            } else {
+                String romanNumeral = "";
+                int tempNumber = number;
+
+                if (tempNumber >= 900) {
+                    romanNumeral += "CM";
+                    tempNumber -= 900;
+                } else if (tempNumber >= 500) {
+                    romanNumeral += "D";
+                    tempNumber -= 500;
+                } else if (tempNumber >= 400) {
+                    romanNumeral += "CD";
+                    tempNumber -= 400;
+                } else {
+                    while (tempNumber >= 100) {
+                        romanNumeral += "C";
+                        tempNumber -= 100;
+                    }
+                }
+
+                if (tempNumber >= 90) {
+                    romanNumeral += "XC";
+                    tempNumber -= 90;
+                } else if (tempNumber >= 50) {
+                    romanNumeral += "L";
+                    tempNumber -= 50;
+                } else if (tempNumber >= 40) {
+                    romanNumeral += "XL";
+                    tempNumber -= 40;
+                } else {
+                    while (tempNumber >= 10) {
+                        romanNumeral += "X";
+                        tempNumber -= 10;
+                    }
+                }
+
+                if (tempNumber == 9) {
+                    romanNumeral += "IX";
+                    tempNumber -= 9;
+                } else if (tempNumber >= 5) {
+                    romanNumeral += "V";
+                    tempNumber -= 5;
+                } else if (tempNumber == 4) {
+                    romanNumeral += "IV";
+                    tempNumber -= 4;
+                } else {
+                    while (tempNumber >= 1) {
+                        romanNumeral += "I";
+                        tempNumber -= 1;
+                    }
+                }
+                System.out.println("The roman number is: " + romanNumeral);
+            }
+            scanner.close();
+        }
+    }
 
     static class homework7 {
         public static void main(String[] args) {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.print("Nhập cạnh a: ");
+            System.out.print("Enter edge a: ");
             double a = scanner.nextDouble();
-            System.out.print("Nhập canh b: ");
+            System.out.print("Enter edge b: ");
             double b = scanner.nextDouble();
-            System.out.print("Nhập cạnh c: ");
+            System.out.print("Enter edge c: ");
             double c = scanner.nextDouble();
 
             if (a + b > c && a + c > b && b + c > a) {
-                System.out.println("Là 1 tam giác ");
+                System.out.println("This is a triangle ");
 
                 if (a == b && b == c) {
-                    System.out.println("Đây là tam giác đều.");
+                    System.out.println("This is an equilateral triangle.");
                 } else if (a * a + b * b == c * c || a * a + c * c == b * b || b * b + c * c == a * a) {
-                    System.out.println("Đây là tam giác vuông.");
+                    System.out.println("This is a right triangle.");
                 } else if (a == b || a == c || b == c) {
-                    System.out.println("Đây là tam giác cân.");
+                    System.out.println("This is an isosceles triangle.");
                 } else {
-                    System.out.println("Đây là tam giác thường.");
+                    System.out.println("This is a normal triangle.");
                 }
 
                 double perimeter = a + b + c;
-                System.out.println("Chu vi của tam giác là: " + perimeter);
+                System.out.println("The perimeter of the triangle is: " + perimeter);
 
                 double p = perimeter / 2;
                 double area = Math.sqrt(p * (p - a) * (p - b) * (p - c));
-                System.out.println("Diện tích của tam giác là: " + area);
+                System.out.println("The area of the triangle is: " + area);
 
             } else {
-                System.out.println("Ba số này không thể tạo thành một tam giác.");
+                System.out.println("These three numbers cannot form a triangle.");
             }
+        }
+    }
+
+    static class homework8 {
+
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter a positive integer: ");
+            int number = scanner.nextInt();
+            int sum = 0;
+            for (int i = 1; i <= number / 2; i++) {
+                if (number % i == 0) {
+                    sum += i;
+                }
+            }
+            if (sum == number) {
+                System.out.println(number + " is a perfect number.");
+            } else {
+                System.out.println(number + " is not a perfect number.");
+            }
+            scanner.close();
+        }
+    }
+
+    static class homework10 {
+        public static void calculateBanknotes(int amount) {
+            int[] denominations = {500, 200, 100, 20, 10, 5, 2, 1};
+            int total = 0;
+            for (int denomination : denominations) {
+                int count = amount / denomination;
+                if (count > 0) {
+                    System.out.println(denomination + " VND: " + count + " bills");
+                    total += count;
+                    amount %= denomination;
+                }
+            }
+            System.out.println("Total number of sheets: " + total);
+        }
+
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter the amount to withdraw: ");
+            int amount = scanner.nextInt();
+            calculateBanknotes(amount);
+            scanner.close();
         }
     }
 }

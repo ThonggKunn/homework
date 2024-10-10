@@ -103,6 +103,101 @@ public class homework_4 {
         }
     }
 
+    static class homework5 {
+        private static int checksum(String ISBM12){
+            int sum = 0;
+            for (int i = 0; i < ISBM12.length(); i++){
+                if (i % 2 == 0)
+                    sum += (ISBM12.charAt(i) - '0');
+                else
+                    sum += 3*(ISBM12.charAt(i) - '0');
+            }
+            int checksum = 10 -sum%10;
+            if (checksum == 10)
+                checksum = 0;
+            return checksum;
+        }
+
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter string 12 numbers: ");
+            String ISBM12Sequences = scanner.next();
+
+            while(ISBM12Sequences.length() != 12){
+                System.out.print("Invalid String. Enter again: ");
+                ISBM12Sequences = scanner.next();
+            }
+            System.out.println("So ISBN-13: " + ISBM12Sequences + checksum(ISBM12Sequences));
+            scanner.close();
+        }
+    }
+
+    static class homework6 {
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter the number of elements in the sequence: ");
+            int n = scanner.nextInt();
+
+            if (n < 2) {
+                System.out.println("The sequence must have at least two elements.");
+                return;
+            }
+
+            int[] array = new int[n];
+            System.out.println("Enter the elements of the sequence:");
+            for (int i = 0; i < n; i++) {
+                array[i] = scanner.nextInt();
+            }
+
+            int secondLargest = findSecondNumber(array);
+            if (secondLargest == Integer.MIN_VALUE) {
+                System.out.println("Second largest number not found (elements are the same).");
+            } else {
+                System.out.println("The second largest number of the sequence is: " + secondLargest);
+            }
+        }
+
+        public static int findSecondNumber(int[] arr) {
+            int largest = Integer.MIN_VALUE;
+            int secondLargest = Integer.MIN_VALUE;
+
+            for (int num : arr) {
+                if (num > largest) {
+                    secondLargest = largest;
+                    largest = num;
+                } else if (num > secondLargest && num < largest) {
+                    secondLargest = num;
+                }
+            }
+
+            return secondLargest;
+        }
+    }
+
+    static class homework7 {
+
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter positive integer n: ");
+            int n = scanner.nextInt();
+
+            while(n <= 0){
+                System.out.print("Invalid n. Enter again: ");
+                n = scanner.nextInt();
+            }
+
+            System.out.print("The "+ n + " fibonacci is : " + fibonacci(n));
+
+            scanner.close();
+        }
+
+        private static int fibonacci(int n) {
+            if(n == 1 || n == 2)
+                return 1;
+            return fibonacci(n-1) + fibonacci(n-2);
+        }
+    }
+
     static class homework8 {
         public static void main(String[] args) {
             Scanner scanner = new Scanner(System.in);

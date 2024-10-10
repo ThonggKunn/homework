@@ -34,68 +34,115 @@ public class homework_7 {
 
     static class homework2 {
         static class Fraction {
-            private int Numerator;
-            private int Denominator;
+            private int numerator;
+            private int denominator;
+            private boolean isValid;
 
-
-//            public int getNumerator() {
-//                return Numerator;
-//            }
-//            public void setNumerator(int Numerator) {
-//                this.Numerator = Numerator;
-//            }
-//
-//            public int getDenominator() {
-//                return Denominator;
-//            }
-//            public void setDenominator(int Denominator) {
-//                this.Denominator = Denominator;
-//            }
-
-            Fraction (int Numerator, int Denominator) {
-                this.Numerator = Numerator;
-                this.Denominator = Denominator;
-            }
-
-            public void reduce() {
-                int gcd = findGCD(Numerator, Denominator);
-                Numerator = Numerator/gcd;
-                Denominator = Denominator / gcd;
-            }
-
-            public static int findGCD(int a, int b) {
-                if (b == 0) {
-                    return a;
+            public Fraction(int numerator, int denominator){
+                this.numerator = numerator;
+                if(denominator == 0) {
+                    this.isValid = false;
+                } else {
+                    this.isValid = true;
+                    this.denominator = denominator;
                 }
-                return findGCD(b, a%b);
             }
 
-            public String toString() {
-                return Numerator + "/" + Denominator;
-            }
-            public Fraction add(Fraction otherFraction) {
-
-                int newNumerator = this.Numerator * otherFraction.Denominator + otherFraction.Numerator * this.Denominator;
-                int newDenominator = this.Denominator * otherFraction.Denominator;
-                return new Fraction(newNumerator, newDenominator);
-            }
-
-            public Fraction subtract(Fraction otherFraction) {
-                int newNumerator = this.Numerator * otherFraction.Denominator - otherFraction.Numerator * this.Denominator;
-                int newDenominator = this.Denominator * otherFraction.Denominator;
-                return new Fraction(newNumerator,newDenominator);
+            public void reduce(){
+                if(!isValid) {
+                    System.out.println("Cannot reduce the fraction!");
+                } else {
+                    int gcd = gcd(numerator, denominator);
+                    this.numerator /= gcd;
+                    this.denominator /= gcd;
+                }
             }
 
-            public Fraction plus(Fraction otherFraction) {
-                int newNumerator = this.Numerator * otherFraction.Numerator;
-                int newDenominator = this.Denominator * otherFraction.Denominator;
-                return new Fraction(newNumerator, newDenominator);
+            @Override
+            public String toString(){
+                if(!isValid)
+                    return "Invalid fraction!";
+                return numerator + "/" + denominator;
             }
 
-            public Fraction divide(Fraction otherFraction) {
-                int newNumerator = this.Numerator * otherFraction.Denominator;
-                int newDenominator = this.Denominator * otherFraction.Numerator;
-                return new Fraction(newNumerator, newDenominator);
+            public Fraction add(Fraction f){
+                if(!this.isValid || !f.isValid){
+                    System.out.println("Cannot add because one of this two fraction is invalid!");
+                    return null;
+                } else {
+                    int newNumerator = this.numerator * f.getDenominator()
+                            + f.getNumerator() * this.getDenominator();
+                    int newDenominator = this.denominator * f.getDenominator();
+
+                    Fraction result = new Fraction(newNumerator, newDenominator);
+                    result.reduce();
+                    return result;
+                }
+            }
+            public Fraction subtract(Fraction f){
+                if(!this.isValid || !f.isValid) {
+                    System.out.println("Cannot subtract because one of this two fraction is invalid!");
+                    return null;
+                } else {
+                    int newNumerator = this.numerator * f.getDenominator()
+                            - f.getNumerator() * this.getDenominator();
+                    int newDenominator = this.denominator * f.getDenominator();
+                    Fraction result = new Fraction(newNumerator, newDenominator);
+                    result.reduce();
+                    return result;
+                }
+            }
+            public Fraction multiply(Fraction f){
+                if(!this.isValid || !f.isValid) {
+                    System.out.println("Cannot multiply because one of this two fraction is invalid!");
+                    return null;
+                } else {
+                    int newNumerator = this.numerator * f.getNumerator();
+                    int newDenominator = this.denominator * f.getDenominator();
+                    Fraction result = new Fraction(newNumerator, newDenominator);
+                    result.reduce();
+                    return result;
+                }
+            }
+            public Fraction divide(Fraction f){
+                if(!this.isValid || !f.isValid) {
+                    System.out.println("Cannot subtract because one of this two fraction is invalid!");
+                    return null;
+                } else {
+                    int newNumerator = this.numerator * f.getDenominator();
+                    int newDenominator = this.denominator * f.getNumerator();
+                    Fraction result = new Fraction(newNumerator, newDenominator);
+                    result.reduce();
+                    return result;
+                }
+            }
+            private int gcd(int numerator, int denominator){
+                if(denominator == 0)
+                    return numerator;
+                return gcd(denominator, numerator%denominator);
+            }
+            public int getNumerator() {
+                return numerator;
+            }
+
+            public void setNumerator(int numerator) {
+                this.numerator = numerator;
+            }
+
+            public int getDenominator() {
+                return denominator;
+            }
+
+            public void setDenominator(int denominator) {
+                this.denominator = denominator;
+            }
+
+            public boolean isValid() {
+                return isValid;
+            }
+
+            public void setValid(boolean valid) {
+                isValid = valid;
             }
         }
 
@@ -121,7 +168,7 @@ public class homework_7 {
             System.out.println("Sum = " + sum);
             Fraction subtract = fraction.subtract(fraction2);
             System.out.println("Subtract = " + subtract);
-            Fraction multiply = fraction.plus(fraction2);
+            Fraction multiply = fraction.multiply(fraction2);
             System.out.println("Multiply = " + multiply);
             Fraction divide = fraction.divide(fraction2);
             System.out.println("Divide = " + divide);
@@ -137,13 +184,6 @@ public class homework_7 {
             private String phone_number;
             private String student_code;
 
-//            Student (String name,String address,String email,String phone_number,String student_code) {
-//                this.name = name;
-//                this.address = address;
-//                this.email = email;
-//                this.phone_number = phone_number;
-//                this.student_code = student_code;
-//            }
             //name
             public String getName() {
                 return name;
